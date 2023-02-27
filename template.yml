@@ -1,0 +1,25 @@
+parallel: false
+retry: 2 
+
+schedule: 
+  - 
+    name: corn schedule
+    type: corn
+    value: 0 16 1,15 * *
+
+connections:
+  - 
+    name: Sample TCP port connection
+    type: TCP
+    ip: 9.9.9.9
+    port: 443
+  -
+    name: Kafka TCP connection
+    type: TCP
+    ip: 127.0.0.1
+    port: 80
+  -
+    name: FSx Volume 
+    type: TCP
+    ip: 127.0.0.1
+    port: 443

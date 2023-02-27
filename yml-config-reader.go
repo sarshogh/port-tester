@@ -4,20 +4,21 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"path"
 )
 
 func ConfigFileExists() (os.FileInfo, error) {
-	config := os.Getenv("PORT_TESTER_CONFIG_FILE_NAME")
-	if config == "" {
-		config = "template"
+	configFileName := os.Getenv("PORT_TESTER_CONFIG_FILE_NAME")
+	if configFileName == "" {
+		configFileName = "template"
 	}
 
-	_, err := FileExists(config)
+	_, err := FileExists(path.Join(path.Base(""),configFileName))
 	if err != nil {
-		panic(fmt.Sprintf("config file %s not found!", config))
+		panic(fmt.Sprintf("config file `%s` not found!", configFileName))
 	}
 
-	return os.Stat(config)
+	return os.Stat(configFileName)
 }
 
 func FileExists(filePath string) (bool, error) {
