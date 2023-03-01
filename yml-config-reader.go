@@ -10,12 +10,14 @@ import (
 func ConfigFileExists() (os.FileInfo, error) {
 	configFileName := os.Getenv("PORT_TESTER_CONFIG_FILE_NAME")
 	if configFileName == "" {
-		configFileName = "template"
+		configFileName = "template.yml"
 	}
 
-	_, err := FileExists(path.Join(path.Base(""),configFileName))
-	if err != nil {
-		panic(fmt.Sprintf("config file `%s` not found!", configFileName))
+	config := path.Join(path.Base("./"), configFileName)
+	result, err := FileExists(config)
+
+	if !result || err != nil {
+		return nil, fmt.Errorf("config file `%s` not found", configFileName)
 	}
 
 	return os.Stat(configFileName)
